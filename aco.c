@@ -1,4 +1,4 @@
-// Copyright 2018 Sen Han 00hnes@gmail.com
+// Copyright 2018 Sen Han <00hnes@gmail.com>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#define _GNU_SOURCE
+
 #include "aco.h"
 #include <stdio.h>
 #include <stdint.h>
@@ -19,10 +21,10 @@
 // this header including should be at the last of the `include` directives list
 #include "aco_assert_override.h"
 
-void aco_runtime_test(){
+void aco_runtime_test(void){
 #ifdef __i386__
     _Static_assert(sizeof(void*) == 4, "require 'sizeof(void*) == 4'");
-#elif  __x86_64__    
+#elif  __x86_64__
     _Static_assert(sizeof(void*) == 8, "require 'sizeof(void*) == 8'");
     _Static_assert(sizeof(__uint128_t) == 16, "require 'sizeof(__uint128_t) == 16'");
 #else
@@ -49,97 +51,97 @@ void aco_runtime_test(){
     )
 
 #define aco_amd64_inline_short_aligned_memcpy(dst, src, sz) do {\
-    __uint128_t __xmm0,__xmm1,__xmm2,__xmm3,__xmm4,__xmm5,__xmm6,__xmm7; \
+    __uint128_t xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7; \
     switch((sz) >> 4){ \
     case 0:  \
         break;  \
     case 1:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
         break;  \
     case 2:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
         break;  \
     case 3:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
         break;  \
     case 4:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        __xmm3 = *((__uint128_t*)(src) + 3);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
-        *((__uint128_t*)(dst) + 3) = __xmm3; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        xmm3 = *((__uint128_t*)(src) + 3);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
+        *((__uint128_t*)(dst) + 3) = xmm3; \
         break;  \
     case 5:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        __xmm3 = *((__uint128_t*)(src) + 3);  \
-        __xmm4 = *((__uint128_t*)(src) + 4);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
-        *((__uint128_t*)(dst) + 3) = __xmm3; \
-        *((__uint128_t*)(dst) + 4) = __xmm4; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        xmm3 = *((__uint128_t*)(src) + 3);  \
+        xmm4 = *((__uint128_t*)(src) + 4);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
+        *((__uint128_t*)(dst) + 3) = xmm3; \
+        *((__uint128_t*)(dst) + 4) = xmm4; \
         break;  \
     case 6:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        __xmm3 = *((__uint128_t*)(src) + 3);  \
-        __xmm4 = *((__uint128_t*)(src) + 4);  \
-        __xmm5 = *((__uint128_t*)(src) + 5);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
-        *((__uint128_t*)(dst) + 3) = __xmm3; \
-        *((__uint128_t*)(dst) + 4) = __xmm4; \
-        *((__uint128_t*)(dst) + 5) = __xmm5; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        xmm3 = *((__uint128_t*)(src) + 3);  \
+        xmm4 = *((__uint128_t*)(src) + 4);  \
+        xmm5 = *((__uint128_t*)(src) + 5);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
+        *((__uint128_t*)(dst) + 3) = xmm3; \
+        *((__uint128_t*)(dst) + 4) = xmm4; \
+        *((__uint128_t*)(dst) + 5) = xmm5; \
         break;  \
     case 7:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        __xmm3 = *((__uint128_t*)(src) + 3);  \
-        __xmm4 = *((__uint128_t*)(src) + 4);  \
-        __xmm5 = *((__uint128_t*)(src) + 5);  \
-        __xmm6 = *((__uint128_t*)(src) + 6);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
-        *((__uint128_t*)(dst) + 3) = __xmm3; \
-        *((__uint128_t*)(dst) + 4) = __xmm4; \
-        *((__uint128_t*)(dst) + 5) = __xmm5; \
-        *((__uint128_t*)(dst) + 6) = __xmm6; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        xmm3 = *((__uint128_t*)(src) + 3);  \
+        xmm4 = *((__uint128_t*)(src) + 4);  \
+        xmm5 = *((__uint128_t*)(src) + 5);  \
+        xmm6 = *((__uint128_t*)(src) + 6);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
+        *((__uint128_t*)(dst) + 3) = xmm3; \
+        *((__uint128_t*)(dst) + 4) = xmm4; \
+        *((__uint128_t*)(dst) + 5) = xmm5; \
+        *((__uint128_t*)(dst) + 6) = xmm6; \
         break;  \
     case 8:  \
-        __xmm0 = *((__uint128_t*)(src) + 0);  \
-        __xmm1 = *((__uint128_t*)(src) + 1);  \
-        __xmm2 = *((__uint128_t*)(src) + 2);  \
-        __xmm3 = *((__uint128_t*)(src) + 3);  \
-        __xmm4 = *((__uint128_t*)(src) + 4);  \
-        __xmm5 = *((__uint128_t*)(src) + 5);  \
-        __xmm6 = *((__uint128_t*)(src) + 6);  \
-        __xmm7 = *((__uint128_t*)(src) + 7);  \
-        *((__uint128_t*)(dst) + 0) = __xmm0; \
-        *((__uint128_t*)(dst) + 1) = __xmm1; \
-        *((__uint128_t*)(dst) + 2) = __xmm2; \
-        *((__uint128_t*)(dst) + 3) = __xmm3; \
-        *((__uint128_t*)(dst) + 4) = __xmm4; \
-        *((__uint128_t*)(dst) + 5) = __xmm5; \
-        *((__uint128_t*)(dst) + 6) = __xmm6; \
-        *((__uint128_t*)(dst) + 7) = __xmm7; \
+        xmm0 = *((__uint128_t*)(src) + 0);  \
+        xmm1 = *((__uint128_t*)(src) + 1);  \
+        xmm2 = *((__uint128_t*)(src) + 2);  \
+        xmm3 = *((__uint128_t*)(src) + 3);  \
+        xmm4 = *((__uint128_t*)(src) + 4);  \
+        xmm5 = *((__uint128_t*)(src) + 5);  \
+        xmm6 = *((__uint128_t*)(src) + 6);  \
+        xmm7 = *((__uint128_t*)(src) + 7);  \
+        *((__uint128_t*)(dst) + 0) = xmm0; \
+        *((__uint128_t*)(dst) + 1) = xmm1; \
+        *((__uint128_t*)(dst) + 2) = xmm2; \
+        *((__uint128_t*)(dst) + 3) = xmm3; \
+        *((__uint128_t*)(dst) + 4) = xmm4; \
+        *((__uint128_t*)(dst) + 5) = xmm5; \
+        *((__uint128_t*)(dst) + 6) = xmm6; \
+        *((__uint128_t*)(dst) + 7) = xmm7; \
         break;  \
     }\
     *((uint64_t*)((uintptr_t)(dst) + (sz) - 8)) = *((uint64_t*)((uintptr_t)(src) + (sz) - 8)); \
@@ -154,7 +156,7 @@ void aco_runtime_test(){
     } \
 } while(0)
 
-static void aco_default_protector_last_word(){
+static void aco_default_protector_last_word(void){
     aco_t* co = aco_get_co();
     // do some log about the offending `co`
     fprintf(stderr,"error: aco_default_protector_last_word triggered\n");
@@ -169,7 +171,7 @@ static __thread aco_cofuncp_t aco_gtls_last_word_fp = aco_default_protector_last
 
 #ifdef __i386__
     static __thread void* aco_gtls_fpucw_mxcsr[2];
-#elif  __x86_64__    
+#elif  __x86_64__
     static __thread void* aco_gtls_fpucw_mxcsr[1];
 #else
     #error "platform no support yet"
@@ -182,11 +184,11 @@ void aco_thread_init(aco_cofuncp_t last_word_co_fp){
         aco_gtls_last_word_fp = last_word_co_fp;
 }
 
-// This function `aco_funcp_protector` should never be 
-// called. If it's been called, that means the offending 
+// This function `aco_funcp_protector` should never be
+// called. If it's been called, that means the offending
 // `co` didn't call aco_exit(co) instead of `return` to
 // finish its execution.
-void aco_funcp_protector(){
+void aco_funcp_protector(void){
     if((void*)(aco_gtls_last_word_fp) != NULL){
         aco_gtls_last_word_fp();
     }else{
@@ -214,7 +216,7 @@ aco_share_stack_t* aco_share_stack_new2(size_t sz, char guard_page_enabled){
 
     size_t u_pgsz = 0;
     if(guard_page_enabled != 0){
-        // although gcc's Built-in Functions to Perform Arithmetic with 
+        // although gcc's Built-in Functions to Perform Arithmetic with
         // Overflow Checking is better, but it would require gcc >= 5.0
         long pgsz = sysconf(_SC_PAGESIZE);
         // pgsz must be > 0 && a power of two
@@ -242,7 +244,7 @@ aco_share_stack_t* aco_share_stack_new2(size_t sz, char guard_page_enabled){
         }
     }
 
-    aco_share_stack_t* p = malloc(sizeof(aco_share_stack_t));
+    aco_share_stack_t* p = (aco_share_stack_t*)malloc(sizeof(aco_share_stack_t));
     assertalloc_ptr(p);
     memset(p, 0, sizeof(aco_share_stack_t));
 
@@ -264,7 +266,7 @@ aco_share_stack_t* aco_share_stack_new2(size_t sz, char guard_page_enabled){
         p->ptr = malloc(sz);
         assertalloc_ptr(p->ptr);
     }
-    
+
     p->owner = NULL;
 #ifdef ACO_USE_VALGRIND
     p->valgrind_stk_id = VALGRIND_STACK_REGISTER(
@@ -275,7 +277,7 @@ aco_share_stack_t* aco_share_stack_new2(size_t sz, char guard_page_enabled){
     uintptr_t u_p = (uintptr_t)(p->sz - (sizeof(void*) << 1) + (uintptr_t)p->ptr);
     u_p = (u_p >> 4) << 4;
     p->align_highptr = (void*)u_p;
-    p->align_retptr  = (void*)(u_p - sizeof(void*)); 
+    p->align_retptr  = (void*)(u_p - sizeof(void*));
     *((void**)(p->align_retptr)) = (void*)(aco_funcp_protector_asm);
     assert(p->sz > (16 + (sizeof(void*) << 1) + sizeof(void*)));
     p->align_limit = p->sz - 16 - (sizeof(void*) << 1);
@@ -302,11 +304,11 @@ void aco_share_stack_destroy(aco_share_stack_t* sstk){
 }
 
 aco_t* aco_create(
-        aco_t* main_co, aco_share_stack_t* share_stack, 
+        aco_t* main_co, aco_share_stack_t* share_stack,
         size_t save_stack_sz, aco_cofuncp_t fp, void* arg
     ){
 
-    aco_t* p = malloc(sizeof(aco_t));
+    aco_t* p = (aco_t*)malloc(sizeof(aco_t));
     assertalloc_ptr(p);
     memset(p, 0, sizeof(aco_t));
 
@@ -358,8 +360,9 @@ aco_t* aco_create(
     assert(0);
 }
 
+aco_attr_no_asan
 void aco_resume(aco_t* resume_co){
-    assert(resume_co != NULL && resume_co->main_co != NULL 
+    assert(resume_co != NULL && resume_co->main_co != NULL
         && resume_co->is_end == 0
     );
     if(resume_co->share_stack->owner != resume_co){
@@ -382,9 +385,9 @@ void aco_resume(aco_t* resume_co){
                     (uintptr_t)(owner_co->reg[ACO_REG_IDX_SP])
                 )
             );
-            owner_co->save_stack.valid_sz = 
+            owner_co->save_stack.valid_sz =
                 (uintptr_t)(owner_co->share_stack->align_retptr)
-                - 
+                -
                 (uintptr_t)(owner_co->reg[ACO_REG_IDX_SP]);
             if(owner_co->save_stack.sz < owner_co->save_stack.valid_sz){
                 free(owner_co->save_stack.ptr);
@@ -405,13 +408,13 @@ void aco_resume(aco_t* resume_co){
     #ifdef __x86_64__
                 aco_amd64_optimized_memcpy_drop_in(
                     owner_co->save_stack.ptr,
-                    owner_co->reg[ACO_REG_IDX_SP], 
+                    owner_co->reg[ACO_REG_IDX_SP],
                     owner_co->save_stack.valid_sz
                 );
     #else
                 memcpy(
                     owner_co->save_stack.ptr,
-                    owner_co->reg[ACO_REG_IDX_SP], 
+                    owner_co->reg[ACO_REG_IDX_SP],
                     owner_co->save_stack.valid_sz
                 );
     #endif
@@ -424,35 +427,35 @@ void aco_resume(aco_t* resume_co){
             owner_co->share_stack->align_validsz = 0;
 #else
             #error "platform no support yet"
-#endif            
+#endif
         }
         assert(resume_co->share_stack->owner == NULL);
 #if defined(__i386__) || defined(__x86_64__)
         assert(
-            resume_co->save_stack.valid_sz 
-            <= 
+            resume_co->save_stack.valid_sz
+            <=
             resume_co->share_stack->align_limit - sizeof(void*)
         );
         // TODO: optimize the performance penalty of memcpy function call
         //   for very short memory span
         if(resume_co->save_stack.valid_sz > 0) {
     #ifdef __x86_64__
-            aco_amd64_optimized_memcpy_drop_in(      
+            aco_amd64_optimized_memcpy_drop_in(
                 (void*)(
-                    (uintptr_t)(resume_co->share_stack->align_retptr)  
+                    (uintptr_t)(resume_co->share_stack->align_retptr)
                     -
                     resume_co->save_stack.valid_sz
-                ), 
+                ),
                 resume_co->save_stack.ptr,
                 resume_co->save_stack.valid_sz
             );
     #else
             memcpy(
                 (void*)(
-                    (uintptr_t)(resume_co->share_stack->align_retptr)  
+                    (uintptr_t)(resume_co->share_stack->align_retptr)
                     -
                     resume_co->save_stack.valid_sz
-                ), 
+                ),
                 resume_co->save_stack.ptr,
                 resume_co->save_stack.valid_sz
             );
@@ -466,7 +469,7 @@ void aco_resume(aco_t* resume_co){
         resume_co->share_stack->owner = resume_co;
 #else
         #error "platform no support yet"
-#endif            
+#endif
     }
     aco_gtls_co = resume_co;
     acosw(resume_co->main_co, resume_co);
@@ -476,7 +479,7 @@ void aco_resume(aco_t* resume_co){
 void aco_destroy(aco_t* co){
     assertptr(co);
     if(aco_is_main_co(co)){
-        free(co);               
+        free(co);
     } else {
         if(co->share_stack->owner == co){
             co->share_stack->owner = NULL;
